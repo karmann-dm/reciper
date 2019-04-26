@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="create-recipe-phases-table" author="Dmitry Karmanov">
+        <sql>
+            create table if not exists recipe_phases (
+                id bigserial primary key,
+                recipe_id bigint not null,
+                order_num integer not null,
+                comment text not null
+            );
+        </sql>
+        <rollback>
+            <sql>
+                drop table if exists recipe_phases;
+                drop sequence if exists recipe_phases_id_seq;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create-recipe-phases-recipe_id-fk" author="Dmitry Karmanov">
+        <sql>
+            alter table if exists recipe_phases add constraint recipe_phases_recipe_fk foreign key (recipe_id) references
+                recipes(id) on delete cascade on update cascade;
+        </sql>
+        <rollback>
+            alter table if exists drop constraint recipe_phases_recipe_fk;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
