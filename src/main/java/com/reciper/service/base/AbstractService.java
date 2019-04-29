@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 
-public abstract class AbstractService<E extends AbstractEntity, R extends CommonRepository> implements CommonService<E> {
+public abstract class AbstractService<E extends AbstractEntity, R extends CommonRepository<E>> implements CommonService<E> {
     protected final R repository;
 
     @Autowired
@@ -16,26 +16,32 @@ public abstract class AbstractService<E extends AbstractEntity, R extends Common
 
     @Override
     public E save(E entity) {
-        return null;
+        return repository.save(entity);
     }
 
     @Override
     public E update(E entity) {
-        return null;
+        repository
+                .findById(entity.getId())
+                .orElseThrow(() ->
+                        new IllegalStateException("No entity with id = " + entity.getId()
+                        )
+                );
+        return repository.save(entity);
     }
 
     @Override
     public Collection<E> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public E findById(Integer id) {
-        return null;
+        return repository.findById(id).orElseThrow(() -> new IllegalStateException("No entity with id = " + id));
     }
 
     @Override
     public void delete(Integer id) {
-
+        repository.deleteById(id);
     }
 }
