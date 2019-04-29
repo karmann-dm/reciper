@@ -1,7 +1,7 @@
 package com.reciper.controller;
 
 import com.reciper.entity.Ingredient;
-import com.reciper.service.IngredientService;
+import com.reciper.service.ingredient.IngredientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class IngredientsController {
 
     @PostMapping("")
     public ResponseEntity<Ingredient> createIngredient(@RequestBody @Valid Ingredient ingredient) {
-        Ingredient saved = ingredientService.create(ingredient);
+        Ingredient saved = ingredientService.save(ingredient);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 

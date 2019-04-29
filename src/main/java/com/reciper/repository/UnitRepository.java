@@ -1,9 +1,9 @@
 package com.reciper.repository;
 
 import com.reciper.entity.Unit;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.reciper.repository.base.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UnitRepository extends JpaRepository<Unit, Integer> {
+public interface UnitRepository extends CommonRepository<Unit> {
 }

@@ -2,8 +2,7 @@ package com.reciper.unit;
 
 import com.reciper.entity.Ingredient;
 import com.reciper.repository.IngredientRepository;
-import com.reciper.service.IngredientService;
-import com.reciper.service.IngredientServiceImpl;
+import com.reciper.service.ingredient.IngredientService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,7 @@ public class IngredientServiceTest {
 
     @Before
     public void before() {
-        ingredientService = new IngredientServiceImpl(ingredientRepository);
+        ingredientService = new IngredientService(ingredientRepository);
         MockitoAnnotations.initMocks(this);
     }
 
@@ -33,7 +32,7 @@ public class IngredientServiceTest {
     public void testCreate() {
         when(ingredientRepository.save(any(Ingredient.class))).thenReturn(new Ingredient());
 
-        ingredientService.create(new Ingredient());
+        ingredientService.save(new Ingredient());
         verify(ingredientRepository, times(1)).save(any(Ingredient.class));
     }
 
@@ -53,9 +52,9 @@ public class IngredientServiceTest {
         ingredients.add(new Ingredient());
 
         when(ingredientRepository.save(any(Ingredient.class))).thenReturn(new Ingredient());
-        ingredientService.create(ingredients.get(0));
-        ingredientService.create(ingredients.get(1));
-        ingredientService.create(ingredients.get(2));
+        ingredientService.save(ingredients.get(0));
+        ingredientService.save(ingredients.get(1));
+        ingredientService.save(ingredients.get(2));
 
         verify(ingredientRepository, times(3)).save(any(Ingredient.class));
         when(ingredientRepository.findAll()).thenReturn(ingredients);

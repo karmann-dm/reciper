@@ -1,9 +1,9 @@
 package com.reciper.repository;
 
 import com.reciper.entity.Ingredient;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.reciper.repository.base.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
+public interface IngredientRepository extends CommonRepository<Ingredient> {
 }

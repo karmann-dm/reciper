@@ -1,5 +1,6 @@
 package com.reciper.entity;
 
+import com.reciper.entity.base.AbstractEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,7 @@ import javax.validation.constraints.Size;
 @Table(name = "ingredients")
 @Getter
 @Setter
-public class Ingredient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class Ingredient extends AbstractEntity {
     @NotNull
     @Size(max = 120)
     private String name;
